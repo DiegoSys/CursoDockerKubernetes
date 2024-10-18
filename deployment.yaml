@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diegosys-prueba-deployment
+spec:
+  replicas: 2  # Número de réplicas
+  selector:
+    matchLabels:
+      app: diegosys-prueba
+  template:
+    metadata:
+      labels:
+        app: diegosys-prueba
+    spec:
+      containers:
+      - name: diegosys-prueba-container
+        image: doris23/actividad_2:latest # Reemplaza con el nombre de tu imagen
+        ports:
+        - containerPort: 5001  # Puerto expuesto por el contenedor
