@@ -17,3 +17,24 @@ spec:
         image: doris23/actividad_2:latest # Reemplaza con el nombre de tu imagen
         ports:
         - containerPort: 5001  # Puerto expuesto por el contenedor
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ratings
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ratings
+  template:
+    metadata:
+      labels:
+        app: ratings
+    spec:
+      containers:
+      - name: ratings
+        image: doris23/actividad_2:latest  # Reemplaza esto con la imagen que necesites
+        ports:
+        - containerPort: 8080
