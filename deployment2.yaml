@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: diego
+  labels:
+    istio-injection: enabled
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: holamundo-prueba-deployment
+  namespace: diego  # Namespace previamente creado
+spec:
+  replicas: 2  # Número de réplicas
+  selector:
+    matchLabels:
+      app: holamundo-prueba
+  template:
+    metadata:
+      labels:
+        app: holamundo-prueba
+    spec:
+      containers:
+      - name: holamundo-prueba-container
+        image: doris23/actividad_2:latest  # Asegúrate de que la imagen esté correcta
+        ports:
+        - containerPort: 5001  # Puerto expuesto por el contenedor
+        resources:
+          requests:
+            memory: "300Mi"
+            cpu: "250m"
+          limits:
+            memory: "300Mi"
+            cpu: "500m"
+        readinessProbe:
+          httpGet:
+            path: /asadf  # Asegúrate de que este path exista en tu aplicación
+            port: 5001
+          initialDelaySeconds: 3
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /asadf  # Asegúrate de que este path exista en tu aplicación
+            port: 5001
+          initialDelaySeconds: 3
+          periodSeconds: 10
+
